@@ -1,85 +1,34 @@
-#include <iostream>
-using namespace std;
-int main()
-{
-	int in, testcase, firstdig, seconddig, thirddig;
-	cout << "Enter No. of Test Cases that you want to continue" << endl;
-	cin >> in;
-	for (int i = 0;i < in;i++)
-	{
-		cout << "Enter Testcase Number" << endl;
-		cin >> testcase;
-		if (testcase > 0 && testcase < 10)
-		{
-			cout << "Case#" << i + 1 << ":" << testcase << endl;
-		}
-		else if (testcase > 9 && testcase < 100)
-		{
-			firstdig = testcase / 10;
-			seconddig = testcase % 10;
-			if (firstdig == seconddig || firstdig < seconddig)
-			{
-				cout << "Case#" << i + 1 << ":" << testcase << endl;
-			}
-			else if (seconddig < firstdig)
-			{
-				while (seconddig < firstdig)
-				{
-					testcase--;
-					firstdig = testcase / 10;
-					seconddig = testcase % 10;
-				}
-				cout << "Case#" << i + 1 << ":" << testcase << endl;
-			}
-		}
-		else if (testcase > 99 && testcase < 1000)
-		{
-			firstdig = testcase / 100;
-			seconddig = (testcase / 10) % 10;
-			thirddig = (testcase % 100) % 10;
-			if (firstdig <= seconddig&&seconddig <= thirddig)
-			{
-				cout << "Case#" << i + 1 << ":" << testcase << endl;
-			}
-			else if (firstdig <= seconddig&&thirddig != seconddig)
-			{
-				if (seconddig < thirddig)
-				{
-					cout << "Case#" << i + 1 << ":" << testcase << endl;
-				}
-				else if (seconddig > thirddig)
-				{
-					while (thirddig < seconddig)
-					{
-						testcase--;
-						seconddig = (testcase / 10) % 10;
-						thirddig = (testcase % 100) % 10;
-					}
-					cout << "Case#" << i + 1 << ":" << testcase << endl;
-				}
-				else if ((testcase = testcase - 1) == 99)
-				{
-					cout << "Case#" << i + 1 << ":" << testcase << endl;
-				}
-				else if (firstdig > seconddig)
-				{
-					while (firstdig > seconddig)
-					{
-						testcase--;
-						firstdig = testcase / 100;
-						seconddig = (testcase / 10) % 10;
-					}
-					cout << "Case#" << i + 1 << ":" << testcase << endl;
-				}
-			}
-		}
-		else if (testcase ==1000)
-			{
-				cout << "Case#" << i + 1 << ":" << testcase-1 << endl;
-			}
-	}
-		system("Pause");
-		return 0;
 
-}
+#include<bits/stdc++.h> 
+using namespace std; 
+
+char* tidyNum(char str[], int len) 
+{ 
+	for (int i = len-2; i >= 0; i--) 
+	{ 
+		// check whether string violates tidy property 
+		if (str[i] > str[i+1]) 
+		{ 
+			// if string violates tidy property, then 
+			// decrease the value stored at that index by 1 
+			// and replace all the value stored right to 
+			// that index by 9 
+			(char)str[i]--; 
+			for (int j=i+1; j<len; j++) 
+				str[j] = '9'; 
+		} 
+	} 
+	return str; 
+} 
+
+// Driver code 
+int main() 
+{ 
+	char str[] = "11333445538"; 
+	int len = strlen(str); 
 	
+	
+	char *num = tidyNum(str, len); 
+	printf("%s\n", num); 
+	return 0; 
+} 
